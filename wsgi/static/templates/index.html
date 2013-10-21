@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+</head>
+<body style="margin: 0;">
+  <div id="chart"></div>
+
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <script type="text/javascript" src="//www.google.com/jsapi?ext.js"></script>
+  <script type="text/javascript">
+    function drawChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Day');
+      {% for member in members -%}
+        data.addColumn('number', '{{ member }}');
+      {% endfor %}
+      data.addRows({{ rows|safe }});
+
+      var options = {
+        title: 'Club stats',
+        seriesType: 'bars', 
+        isStacked: true,
+        hAxis: {title: 'Day'}
+      };
+      
+      var chart = new google.visualization.ColumnChart(document.getElementById('chart'));
+      chart.draw(data, options);
+    }
+
+    $(window).resize(function (data) {
+      $('#chart')
+        .width($(window).width())
+        .height($(window).height());
+    });
+
+    $(document).ready(function () {
+      $(window).resize();
+    });
+    
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(drawChart);
+  </script>
+</body>
+</html>
