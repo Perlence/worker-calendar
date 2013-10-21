@@ -9,6 +9,9 @@ app.template_folder = 'static/templates'
 
 DATA_PATH = 'static/data/club.txt'
 
+def relopen(name):
+    return open(os.path.join(os.path.dirname(__file__), name))
+
 @app.route('/')
 def club():
     year    = request.args.get('year')
@@ -19,11 +22,10 @@ def club():
     log = skypelog.SkypeLog()
     try:
         print os.path.abspath(__file__)
-        fp = open(DATA_PATH)
+        fp = relopen(DATA_PATH)
         log.load(fp)
     except IOError:
-        return Response(os.path.abspath(__file__), status=404)
-        # abort(404)
+        abort(404)
 
     try:
         rows = skypelog.club(log.querydate(year, month, day), groupby=groupby)
