@@ -21,7 +21,6 @@ def club():
         fp = open(DATA_PATH)
         log.load(fp)
     except IOError:
-        raise
         abort(404)
 
     try:
