@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, request, render_template, abort
+from flask import Flask, Response, request, render_template, abort
 
 import skypelog
 
@@ -18,10 +18,12 @@ def club():
 
     log = skypelog.SkypeLog()
     try:
+        print os.path.abspath(__file__)
         fp = open(DATA_PATH)
         log.load(fp)
     except IOError:
-        abort(404)
+        return Response(os.path.abspath(__file__), status=404)
+        # abort(404)
 
     try:
         rows = skypelog.club(log.querydate(year, month, day), groupby=groupby)
