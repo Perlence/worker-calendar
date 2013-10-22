@@ -17,11 +17,10 @@ def club():
     year    = request.args.get('year')
     month   = request.args.get('month')
     day     = request.args.get('day')
-    groupby = request.args.get('groupby') or 'week'
+    groupby = request.args.get('groupby', 'week')
 
     log = skypelog.SkypeLog()
     try:
-        print os.path.abspath(__file__)
         fp = relopen(DATA_PATH)
         log.load(fp)
     except IOError:
