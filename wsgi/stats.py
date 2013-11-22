@@ -4,13 +4,15 @@ from flask import Flask, Response, request, render_template, abort
 
 import skypelog
 
-app = Flask(__name__)
-app.template_folder = 'static/templates'
 
 DATA_PATH = 'static/data/club.txt'
 
+app = Flask(__name__)
+
+
 def relopen(name):
     return open(os.path.join(os.path.dirname(__file__), name))
+
 
 @app.route('/')
 def club():
@@ -34,6 +36,7 @@ def club():
     return render_template('index.html', 
                            members=skypelog.MEMBERS, 
                            rows=rows)
+
 
 if __name__ == '__main__':
     app.run(port=8000, debug=True)
