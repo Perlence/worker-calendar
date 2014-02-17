@@ -1,7 +1,6 @@
 # -*- encoding: utf-8 -*-
 import re
 import string
-import calendar
 import itertools
 from collections import Counter, namedtuple
 from datetime import datetime
@@ -57,7 +56,7 @@ class Message(namedtuple('Message', 'timestamp, author, body, crc')):
                 languages['russian'] += 1
         return languages.most_common(1)[0][0]
 
-    def isLink(self):
+    def is_link(self):
         return ('http://' in self.body or 
                 'www.' in self.body)
 
@@ -140,7 +139,7 @@ def dialogue(messages):
 
     for d, r, e in zip(range(1, 32), days_russian, days_english):
         array += [[str(d), r, e]]
-    pprint.pprint(array)
+
 
 def club(messages, groupby='week'):
     if groupby == 'day' or groupby is None:
