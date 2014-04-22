@@ -39,9 +39,12 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     calendar = Calendar()
+    calendar['prodid'] = 'Worker calendar'
+    calendar['version'] = '2.0'
+    calendar['x-wr-calname'] = 'Worker calendar'
     for day, type_ in workdays():
         event = Event()
-        event['uid'] = 'worker-day-' + day.isoformat()
+        event['uid'] = 'WORKER-DAY-' + day.isoformat()
         event['dtstart'] = day
         event['dtend'] = day + timedelta(days=1)
         event['summary'] = DESCRIPTION[type_]
