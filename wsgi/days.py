@@ -7,7 +7,7 @@ from icalendar import Calendar, Event
 
 FIRST_DAY = date(2014, 4, 17)
 FORMULA = '111102222033330'
-DESCRIPTION = {
+SUMMARY = {
     '0': 'Day out',
     '1': 'First shift',
     '2': 'Second shift',
@@ -50,7 +50,7 @@ def index():
         event.add('dtstamp', datetime.now())
         event.add('dtstart', day)
         event.add('dtend', day + timedelta(days=1))
-        event.add('summary', DESCRIPTION[type_])
+        event.add('summary', SUMMARY[type_])
         event['dtstamp'].to_ical()
         event['dtstart'].to_ical()
         event['dtend'].to_ical()
@@ -58,7 +58,7 @@ def index():
     response = make_response(calendar.to_ical())
     response.headers['Content-Type'] = 'text/calendar'
     response.headers['Content-Disposition'] = (
-        'attachment; filename="worker-day-%s.ics"' % day.isoformat())
+        'inline; filename="worker-day-%s.ics"' % day.isoformat())
     return response
 
 
