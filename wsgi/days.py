@@ -1,5 +1,5 @@
 from itertools import cycle, izip, takewhile, dropwhile
-from datetime import date, timedelta
+from datetime import datetime, date, timedelta
 
 from flask import Flask, make_response
 from icalendar import Calendar, Event
@@ -39,12 +39,15 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     calendar = Calendar()
-    calendar['prodid'] = 'Worker calendar'
+    calendar['prodid'] = '-//worker-perlence//Worker calendar'
     calendar['version'] = '2.0'
     calendar['x-wr-calname'] = 'Worker calendar'
     for day, type_ in workdays():
+        if type_ == '0':
+            continue
         event = Event()
         event.add('uid', 'WORKER-DAY-' + day.isoformat())
+        event.add('dtstamp', datetime.now())
         event.add('dtstart', day)
         event.add('dtend', day + timedelta(days=1))
         event.add('summary', DESCRIPTION[type_])
