@@ -36,7 +36,7 @@ def workdays():
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/ics/')
 def index():
     calendar = Calendar()
     calendar['prodid'] = '-//worker-perlence//Worker calendar'
@@ -56,9 +56,9 @@ def index():
         event['dtend'].to_ical()
         calendar.add_component(event)
     response = make_response(calendar.to_ical())
-    response.headers['Content-Type'] = 'text/calendar'
-    response.headers['Content-Disposition'] = (
-        'inline; filename="worker-day-%s.ics"' % day.isoformat())
+    response.headers['Content-Type'] = 'text/calendar;charset=utf-8'
+    # response.headers['Content-Disposition'] = (
+    #     'inline; filename="worker-day-%s.ics"' % day.isoformat())
     return response
 
 
