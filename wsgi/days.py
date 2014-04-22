@@ -51,6 +51,7 @@ def index():
         event.add('dtstart', day)
         event.add('dtend', day + timedelta(days=1))
         event.add('summary', DESCRIPTION[type_])
+        event['dtstamp'].to_ical()
         event['dtstart'].to_ical()
         event['dtend'].to_ical()
         calendar.add_component(event)
