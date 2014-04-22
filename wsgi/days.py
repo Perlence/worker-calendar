@@ -44,10 +44,12 @@ def index():
     calendar['x-wr-calname'] = 'Worker calendar'
     for day, type_ in workdays():
         event = Event()
-        event['uid'] = 'WORKER-DAY-' + day.isoformat()
-        event['dtstart'] = day
-        event['dtend'] = day + timedelta(days=1)
-        event['summary'] = DESCRIPTION[type_]
+        event.add('uid', 'WORKER-DAY-' + day.isoformat())
+        event.add('dtstart', day)
+        event.add('dtend', day + timedelta(days=1))
+        event.add('summary', DESCRIPTION[type_])
+        event['dtstart'].to_ical()
+        event['dtend'].to_ical()
         calendar.add_component(event)
     response = make_response(calendar.to_ical())
     response.headers['Content-Type'] = 'text/calendar'
