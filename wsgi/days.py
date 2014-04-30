@@ -5,7 +5,7 @@ from flask import Flask, make_response
 from icalendar import Calendar, Event
 
 
-FIRST_DAY = date(2014, 4, 17)
+FIRST_DAY = date(2014, 4, 2)
 FORMULA = '111102222033330'
 SUMMARY = {
     '0': 'Day out',
@@ -24,11 +24,10 @@ def days(start):
 
 def workdays():
     today = date.today()
-    month = today + timedelta(days=31)
-    drop = lambda (d, _): d < today
-    take = lambda (d, _): d < month
-    return takewhile(take,
-                     dropwhile(drop,
+    past = lambda (d, _): d < today - timedelta(days=31)
+    future = lambda (d, _): d < today + timedelta(days=31)
+    return takewhile(future,
+                     dropwhile(past,
                                izip(days(FIRST_DAY),
                                     cycle(FORMULA))))
 
