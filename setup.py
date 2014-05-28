@@ -1,10 +1,10 @@
 from setuptools import setup
 
 setup(
-    name='Skype Stats',
+    name='Savory Perlence',
     version='1.0',
-    description='Colorful statistics of English club.',
+    description='Various web applications.',
     author='Sviatoslav Abakumov',
-    author_email='abakumov.sviatoslav@progforce.com',
+    author_email='dust.harvesting@gmail.com',
     install_requires=['Flask>=0.10.1'],
 )

@@ -1,24 +1,26 @@
 import os
 
-from flask import Flask, Response, request, render_template, abort
+from flask import Blueprint, request, render_template, abort
 
 import skypelog
 
 
 DATA_PATH = 'static/data/club.txt'
 
-app = Flask(__name__)
+stats = Blueprint('stats', __name__,
+                  template_folder='templates',
+                  static_folder='static')
 
 
 def relopen(name):
     return open(os.path.join(os.path.dirname(__file__), name))
 
 
-@app.route('/')
+@stats.route('/')
 def club():
-    year    = request.args.get('year')
-    month   = request.args.get('month')
-    day     = request.args.get('day')
+    year = request.args.get('year')
+    month = request.args.get('month')
+    day = request.args.get('day')
     groupby = request.args.get('groupby', 'week')
 
     log = skypelog.SkypeLog()
@@ -32,11 +34,7 @@ def club():
         rows = skypelog.club(log.querydate(year, month, day), groupby=groupby)
     except ValueError:
         abort(400)
-    
-    return render_template('index.html', 
-                           members=skypelog.MEMBERS, 
+
+    return render_template('index.html',
+                           members=skypelog.MEMBERS,
                            rows=rows)
-
-
-if __name__ == '__main__':
-    app.run(port=8000, debug=True)
