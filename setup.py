@@ -6,5 +6,8 @@ setup(
     description='Various web applications.',
     author='Sviatoslav Abakumov',
     author_email='dust.harvesting@gmail.com',
-    install_requires=['Flask>=0.10.1'],
+    install_requires=[
+        'Flask>=0.10.1',
+        'icalendar',
+    ],
 )

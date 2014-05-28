@@ -1,7 +1,7 @@
 from itertools import cycle, izip, takewhile, dropwhile
 from datetime import datetime, date, timedelta
 
-from flask import Flask, make_response
+from flask import Blueprint, make_response
 from icalendar import Calendar, Event
 
 
@@ -32,10 +32,10 @@ def workdays():
                                     cycle(FORMULA))))
 
 
-app = Flask(__name__)
+worker = Blueprint('worker', __name__)
 
 
-@app.route('/')
+@worker.route('/')
 def index():
     calendar = Calendar()
     calendar['prodid'] = '-//worker-perlence//Worker calendar'
@@ -59,7 +59,3 @@ def index():
     response.headers['Content-Disposition'] = (
         'inline; filename="worker-day-%s.ics"' % day.isoformat())
     return response
-
-
-if __name__ == '__main__':
-    app.run(port=5000, debug=True)
