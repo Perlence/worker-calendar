@@ -2,7 +2,7 @@ import os
 
 from flask import Blueprint, request, render_template, abort
 
-import skypelog
+from . import skypelog
 
 
 DATA_PATH = 'static/data/club.txt'
@@ -35,6 +35,6 @@ def club():
     except ValueError:
         abort(400)
 
-    return render_template('index.html',
+    return render_template('stats/index.html',
                            members=skypelog.MEMBERS,
                            rows=rows)

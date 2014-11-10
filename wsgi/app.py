@@ -9,5 +9,10 @@ app.register_blueprint(stats, url_prefix='/stats')
 app.register_blueprint(worker, url_prefix='/worker')
 charts = ElaborateCharts(app, url_prefix='/elaboratecharts')
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
+def start():
+    app.run(host='0.0.0.0', debug=False)
+
+
+def debug():
+    app.run(host='127.0.0.1', debug=True)

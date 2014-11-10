@@ -6,6 +6,12 @@ setup(
     description='Various web applications.',
     author='Sviatoslav Abakumov',
     author_email='dust.harvesting@gmail.com',
+    entry_points={
+        'console_scripts': [
+           'startapp = wsgi.app:start',
+           'debugapp = wsgi.app:debug',
+        ],
+    },
     install_requires=[
         'Flask>=0.10.1',
         'icalendar',
