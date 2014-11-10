@@ -1,0 +1,2 @@
+#!/bin/sh
+GIT_WORK_TREE=/home/perlence/savory git checkout -f

@@ -13,7 +13,8 @@ setup(
         ],
     },
     install_requires=[
-        'Flask>=0.10.1',
+        'flask>=0.10.1',
+        'gunicorn',
         'icalendar',
     ],
 )
