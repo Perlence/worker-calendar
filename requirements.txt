@@ -1,1 +1,0 @@
--e git+https://github.com/Perlence/elaborate-lastfm-charts.git#egg=elaborate-lastfm-charts

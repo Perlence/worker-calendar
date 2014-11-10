@@ -131,7 +131,7 @@ def deploy():
             run('pip install --force-reinstall -r requirements.txt')
             run('python setup.py develop')
         # Install Bower dependencies for Elaborate Last.fm Charts.
-        with cd('env/src/elaborate-lastfm-charts'):
+        with cd('elaborate-lastfm-charts'):
             run('bower install')
     supervisorctl('restart ' + PROJECT_NAME)
 
