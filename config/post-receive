@@ -1,2 +1,4 @@
 #!/bin/sh
-GIT_WORK_TREE=/home/perlence/savory git checkout -f
+export GIT_WORK_TREE=/home/perlence/savory
+git checkout -f
+git submodule update --init
