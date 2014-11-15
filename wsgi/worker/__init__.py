@@ -5,7 +5,7 @@ from flask import Blueprint, make_response
 from icalendar import Calendar, Event
 
 
-FIRST_DAY = date(2014, 4, 2)
+FIRST_DAY = date(2014, 11, 12)
 FORMULA = '111102222033330'
 SUMMARY = {
     '0': 'Day out',
