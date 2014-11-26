@@ -7,7 +7,8 @@ PROJECT_NAME = 'savory'
 LOCAL_CONFIG_DIR = './config'
 
 REMOTE_APP_DIR = '/home/perlence'
-REMOTE_PACKAGE_DIR = '/home/perlence/savory'
+REMOTE_PACKAGE_DIR = REMOTE_APP_DIR + '/savory'
+REMOTE_GIT_DIR = REMOTE_PACKAGE_DIR + '.git'
 
 env.hosts = ['104.219.53.106']
 env.user = 'perlence'
@@ -104,14 +105,12 @@ def configure_git():
     1. Setup bare Git repo
     2. Create post-receive hook
     """
-    with cd(REMOTE_APP_DIR):
-        run('mkdir ' + PROJECT_NAME + '.git')
-        with cd(PROJECT_NAME + '.git'):
+    if not exists(REMOTE_GIT_DIR):
+        run('mkdir -p' + REMOTE_GIT_DIR)
+        with cd(REMOTE_GIT_DIR):
             run('git init --bare')
-            with lcd(LOCAL_CONFIG_DIR):
-                with cd('hooks'):
-                    put('post-receive', './')
-                    run('chmod +x post-receive')
+    with cd(REMOTE_PACKAGE_DIR):
+        run('echo "gitdir: %s" > .git' % REMOTE_GIT_DIR)
 
 
 def run_app():
@@ -127,6 +126,8 @@ def deploy():
     """
     local('git push production master')
     with cd(REMOTE_PACKAGE_DIR):
+        run('git --work-tree . checkout -f')
+        run('git --work-tree . submodule update --init')
         with prefix('source env/bin/activate'):
             run('pip install --force-reinstall -r requirements.txt')
             run('python setup.py develop')
