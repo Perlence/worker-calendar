@@ -6,7 +6,7 @@ from icalendar import Calendar, Event
 
 
 FIRST_DAY = date(2014, 11, 12)
-FORMULA = '111102222033330'
+FORMULA = '1111022220333300'
 SUMMARY = {
     '0': 'Day out',
     '1': 'First shift',
