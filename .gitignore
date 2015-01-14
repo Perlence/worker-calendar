@@ -38,3 +38,5 @@ nosetests.xml
 privatekey
 config.cfg
 env/
+
+wsgi/worker/config.json
