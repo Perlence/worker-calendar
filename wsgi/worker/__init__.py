@@ -1,5 +1,6 @@
 import json
 from datetime import datetime, date, timedelta
+from hashlib import md5
 from itertools import cycle, izip, takewhile, dropwhile
 from os import path
 from warnings import warn
@@ -44,10 +45,13 @@ def index():
         event['dtend'].to_ical()
         calendar.add_component(event)
 
-    response = make_response(calendar.to_ical())
+    data = calendar.to_ical()
+    cache_bust = md5(data).hexdigest()[:7]
+
+    response = make_response(data)
     response.headers['Content-Type'] = 'text/calendar;charset=utf-8'
     response.headers['Content-Disposition'] = (
-        'inline; filename="worker-day-%s.ics"' % day.isoformat())
+        'inline; filename="worker-day-%s.ics"' % cache_bust)
     return response
 
 
