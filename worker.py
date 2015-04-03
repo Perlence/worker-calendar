@@ -5,7 +5,7 @@ from itertools import cycle, izip, takewhile, dropwhile
 from os import path
 from warnings import warn
 
-from flask import Blueprint, make_response
+from flask import Flask, Blueprint, make_response
 from icalendar import Calendar, Event
 
 
@@ -84,3 +84,9 @@ def days(start):
     while True:
         yield day
         day += timedelta(days=1)
+
+
+if __name__ == '__main__':
+    app = Flask(__name__)
+    app.register_blueprint(worker)
+    app.run('127.0.0.1', debug=True)
