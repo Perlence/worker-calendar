@@ -8,8 +8,7 @@ setup(
     author_email='dust.harvesting@gmail.com',
     py_modules=['worker'],
     install_requires=[
-        'flask>=0.10.1',
-        'gunicorn',
+        'flask',
         'icalendar',
     ],
 )
