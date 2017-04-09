@@ -10,8 +10,8 @@ from icalendar import Calendar, Event
 
 
 DEFAULT_CFG = {
-    'FIRST_DAY': date(2015, 1, 12),
-    'FORMULA': '1111022220333300',
+    'FIRST_DAY': date(2017, 4, 2),
+    'FORMULA': '3333002222011110',
     'SUMMARY': {
         '0': 'Day out',
         '1': 'First shift',
